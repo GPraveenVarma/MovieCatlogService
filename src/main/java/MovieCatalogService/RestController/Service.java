@@ -2,8 +2,8 @@ package MovieCatalogService.RestController;
 
 import MovieCatalogService.Model.MovieDTO;
 import MovieCatalogService.Model.Rating;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -21,6 +21,10 @@ import java.util.List;
 
 @Component
 public class Service {
+
+    @Value("${Movie.uri}")
+    private String uri;
+
     private RestTemplate restTemplate = new RestTemplate();
 
     @Autowired
@@ -52,7 +56,7 @@ public class Service {
     }
 
     private URI getUri() {
-        return UriComponentsBuilder.fromHttpUrl("http://localhost:9999/Rating/micro1/getratings/user1")
+        return UriComponentsBuilder.fromHttpUrl(uri)
                 .build()
                 .toUri();
     }
